@@ -3,23 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <title>💜 Gửi em 💜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="game">
-  <img id="player" src="assets/heart.png">
-  <img id="goal" src="assets/goal.png">
+  <!-- Nhân vật -->
+  <div id="player"></div>
+
+  <!-- Đích -->
+  <div id="goal">💜</div>
+
+  <!-- MÊ CUNG -->
+  <div class="wall" style="top:80px; left:40px; width:260px; height:20px;"></div>
+  <div class="wall" style="top:160px; left:40px; width:20px; height:200px;"></div>
+  <div class="wall" style="top:360px; left:40px; width:260px; height:20px;"></div>
+  <div class="wall" style="top:160px; left:280px; width:20px; height:200px;"></div>
 </div>
 
-<audio id="music" src="assets/music.mp3"></audio>
-
+<!-- POPUP -->
 <div id="popup" class="hidden">
   <div class="popup-content">
     <p id="popup-text"></p>
     <button id="popup-btn">Dạ 💜</button>
   </div>
 </div>
+
+<!-- NÚT ĐIỀU KHIỂN MOBILE -->
+<div id="controls">
+  <button onclick="move('up')">▲</button>
+  <div class="row">
+    <button onclick="move('left')">◀</button>
+    <button onclick="move('right')">▶</button>
+  </div>
+  <button onclick="move('down')">▼</button>
+</div>
+
+<audio id="music" src="assets/music.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
