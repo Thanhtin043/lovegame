@@ -1,87 +1,86 @@
 body {
   margin: 0;
-  background: #7a6f78;
-  font-family: "Comic Sans MS", cursive;
+  background: #7b6d77;
+  font-family: sans-serif;
   overflow: hidden;
-  touch-action: none;
 }
 
+/* GAME */
 #game {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
 }
 
 /* PLAYER */
 #player {
   position: absolute;
-  font-size: 48px;
-  top: 20px;
+  font-size: 36px;
   left: 20px;
+  top: 20px;
 }
 
 /* GOAL */
 #goal {
   position: absolute;
-  font-size: 48px;
-  bottom: 30px;
-  right: 30px;
+  font-size: 36px;
+  right: 20px;
+  bottom: 20px;
 }
 
 /* WALL */
 .wall {
   position: absolute;
   background: #4a005f;
-  border-radius: 12px;
-}
-
-/* POPUP */
-#popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.hidden {
-  display: none;
-}
-
-.popup-content {
-  background: white;
-  padding: 40px;
-  border-radius: 30px;
-  text-align: center;
-  width: 90%;
-  max-width: 420px;
-  font-size: 20px;
+  border-radius: 10px;
 }
 
 /* CONTROLS */
 #controls {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 1000;
-}
-
-#controls .row {
-  display: flex;
-  gap: 10px;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
 }
 
 #controls button {
-  background: #4a005f;
+  font-size: 24px;
+  padding: 12px 18px;
+  margin: 5px;
+  border-radius: 12px;
+  background: #5e1b7a;
   color: white;
   border: none;
-  border-radius: 14px;
-  font-size: 22px;
-  padding: 14px 20px;
+}
+
+/* POPUP – KHÓA 100% */
+.hidden {
+  display: none !important;
+}
+
+#popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#popup-box {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  max-width: 80%;
+}
+
+#popup-btn {
+  margin-top: 15px;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: purple;
+  color: white;
+  border: none;
 }
