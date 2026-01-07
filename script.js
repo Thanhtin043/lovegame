@@ -6,13 +6,38 @@ const popupBtn = document.getElementById("popup-btn");
 const music = document.getElementById("music");
 const walls = document.querySelectorAll(".wall");
 
+/* PLAYER POSITION */
 let x = 20;
 let y = 20;
-let step = 0;
-let gameFinished = false;
 
 const size = 48;
 const speed = 20;
+
+let step = 0;
+let gameFinished = false;
+
+/* SET START POSITION */
+player.style.left = x + "px";
+player.style.top = y + "px";
+
+/* WALL DATA (TỰ ĐỘNG LẤY TỌA ĐỘ ABSOLUTE) */
+const wallRects = [];
+walls.forEach(w => {
+  wallRects.push({
+    x: w.offsetLeft,
+    y: w.offsetTop,
+    w: w.offsetWidth,
+    h: w.offsetHeight
+  });
+});
+
+/* GOAL DATA */
+const goalRect = {
+  x: goal.offsetLeft,
+  y: goal.offsetTop,
+  w: goal.offsetWidth,
+  h: goal.offsetHeight
+};
 
 /* MOVE */
 function move(dir) {
@@ -37,42 +62,34 @@ function move(dir) {
 
 /* KEYBOARD */
 document.addEventListener("keydown", e => {
-  if (e.key.includes("Arrow")) {
-    move(e.key.replace("Arrow", "").toLowerCase());
-  }
+  if (e.key === "ArrowUp") move("up");
+  if (e.key === "ArrowDown") move("down");
+  if (e.key === "ArrowLeft") move("left");
+  if (e.key === "ArrowRight") move("right");
 });
 
 /* WALL COLLISION */
 function hitWall(nx, ny) {
-  const future = {
-    left: nx,
-    right: nx + size,
-    top: ny,
-    bottom: ny + size
-  };
-
-  for (let w of walls) {
-    const r = w.getBoundingClientRect();
+  for (let w of wallRects) {
     if (
-      future.left < r.right &&
-      future.right > r.left &&
-      future.top < r.bottom &&
-      future.bottom > r.top
-    ) return true;
+      nx < w.x + w.w &&
+      nx + size > w.x &&
+      ny < w.y + w.h &&
+      ny + size > w.y
+    ) {
+      return true;
+    }
   }
   return false;
 }
 
-/* WIN */
+/* WIN CHECK */
 function checkWin() {
-  const p = player.getBoundingClientRect();
-  const g = goal.getBoundingClientRect();
-
   if (
-    p.left < g.right &&
-    p.right > g.left &&
-    p.top < g.bottom &&
-    p.bottom > g.top
+    x < goalRect.x + goalRect.w &&
+    x + size > goalRect.x &&
+    y < goalRect.y + goalRect.h &&
+    y + size > goalRect.y
   ) {
     gameFinished = true;
     showPopup();
@@ -85,7 +102,7 @@ function showPopup() {
 
   if (step === 0) {
     popupText.innerText =
-      "Em đã vượt qua mê cung 💜\nAnh có điều này muốn hỏi...";
+      "Em đã vượt qua mê cung 💜\nAnh có điều muốn nói...";
   } 
   else if (step === 1) {
     popupText.innerText =
@@ -100,7 +117,7 @@ function showPopup() {
   }
 }
 
-/* POPUP CLICK */
+/* POPUP BUTTON */
 popupBtn.onclick = () => {
   if (music.paused) music.play();
   step++;
