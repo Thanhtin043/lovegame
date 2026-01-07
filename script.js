@@ -78,7 +78,7 @@ popupBtn.onclick = () => {
   step++;
   music.play();
   popupText.innerHTML = `
-    <img src="assets/girlfriend.jpg" width="200" style="border-radius:20px"><br><br>
+    <img src="assets/girlfriend.png" width="200" style="border-radius:20px"><br><br>
     Anh yêu em 💜
   `;
   popupBtn.style.display = "none";
