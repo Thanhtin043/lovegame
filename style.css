@@ -1,11 +1,11 @@
 body {
   margin: 0;
-  background: #f3e5f5;
+  background: #7a6f78;
   font-family: "Comic Sans MS", cursive;
   overflow: hidden;
+  touch-action: none;
 }
 
-/* GAME */
 #game {
   position: relative;
   width: 100vw;
@@ -14,11 +14,8 @@ body {
 
 /* PLAYER */
 #player {
-  width: 60px;
-  height: 60px;
-  background: purple;
-  border-radius: 50%;
   position: absolute;
+  font-size: 48px;
   top: 20px;
   left: 20px;
 }
@@ -26,27 +23,27 @@ body {
 /* GOAL */
 #goal {
   position: absolute;
+  font-size: 48px;
   bottom: 30px;
   right: 30px;
-  font-size: 48px;
 }
 
 /* WALL */
 .wall {
   position: absolute;
-  background: #7b1fa2;
-  border-radius: 10px;
+  background: #4a005f;
+  border-radius: 12px;
 }
 
 /* POPUP */
 #popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .hidden {
@@ -56,24 +53,14 @@ body {
 .popup-content {
   background: white;
   padding: 40px;
-  border-radius: 25px;
+  border-radius: 30px;
   text-align: center;
   width: 90%;
   max-width: 420px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
-/* BUTTON */
-button {
-  background: purple;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 20px;
-  font-size: 18px;
-}
-
-/* MOBILE CONTROLS */
+/* CONTROLS */
 #controls {
   position: fixed;
   bottom: 20px;
@@ -82,7 +69,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  z-index: 999;
+  z-index: 1000;
 }
 
 #controls .row {
@@ -91,6 +78,10 @@ button {
 }
 
 #controls button {
-  font-size: 24px;
-  padding: 14px 22px;
+  background: #4a005f;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 22px;
+  padding: 14px 20px;
 }
