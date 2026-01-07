@@ -71,7 +71,7 @@ function showPopup() {
   popup.classList.remove("hidden");
   popupText.innerText = step === 0
     ? "Em đã tới được trái tim anh 💜"
-    : "Em làm người yêu anh nhé? 💕";
+    : "Đoán xem đây là aiiii? 💕";
 }
 
 popupBtn.onclick = () => {
@@ -79,7 +79,7 @@ popupBtn.onclick = () => {
   music.play();
   popupText.innerHTML = `
     <img src="assets/girlfriend.png" width="200" style="border-radius:20px"><br><br>
-    Anh yêu em 💜
+    Hùuuu 💜
   `;
   popupBtn.style.display = "none";
 };
