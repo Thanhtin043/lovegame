@@ -1,0 +1,53 @@
+body {
+  background: #f3e5f5;
+  font-family: Comic Sans MS, cursive;
+  overflow: hidden;
+}
+
+#game {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+#player {
+  width: 60px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+
+#goal {
+  width: 80px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+#popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+button {
+  background: purple;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
