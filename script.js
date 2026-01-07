@@ -9,18 +9,22 @@ const walls = document.querySelectorAll(".wall");
 let x = 20;
 let y = 20;
 let step = 0;
-const size = 60;
+let gameFinished = false;
 
-/* DI CHUYỂN */
-function move(direction) {
-  const speed = 20;
+const size = 48;
+const speed = 20;
+
+/* MOVE */
+function move(dir) {
+  if (gameFinished) return;
+
   let nx = x;
   let ny = y;
 
-  if (direction === "up") ny -= speed;
-  if (direction === "down") ny += speed;
-  if (direction === "left") nx -= speed;
-  if (direction === "right") nx += speed;
+  if (dir === "up") ny -= speed;
+  if (dir === "down") ny += speed;
+  if (dir === "left") nx -= speed;
+  if (dir === "right") nx += speed;
 
   if (!hitWall(nx, ny)) {
     x = nx;
@@ -33,13 +37,12 @@ function move(direction) {
 
 /* KEYBOARD */
 document.addEventListener("keydown", e => {
-  if (e.key === "ArrowUp") move("up");
-  if (e.key === "ArrowDown") move("down");
-  if (e.key === "ArrowLeft") move("left");
-  if (e.key === "ArrowRight") move("right");
+  if (e.key.includes("Arrow")) {
+    move(e.key.replace("Arrow", "").toLowerCase());
+  }
 });
 
-/* VA CHẠM TƯỜNG */
+/* WALL COLLISION */
 function hitWall(nx, ny) {
   const future = {
     left: nx,
@@ -48,21 +51,19 @@ function hitWall(nx, ny) {
     bottom: ny + size
   };
 
-  for (let wall of walls) {
-    const w = wall.getBoundingClientRect();
+  for (let w of walls) {
+    const r = w.getBoundingClientRect();
     if (
-      future.left < w.right &&
-      future.right > w.left &&
-      future.top < w.bottom &&
-      future.bottom > w.top
-    ) {
-      return true;
-    }
+      future.left < r.right &&
+      future.right > r.left &&
+      future.top < r.bottom &&
+      future.bottom > r.top
+    ) return true;
   }
   return false;
 }
 
-/* KIỂM TRA THẮNG */
+/* WIN */
 function checkWin() {
   const p = player.getBoundingClientRect();
   const g = goal.getBoundingClientRect();
@@ -73,6 +74,7 @@ function checkWin() {
     p.top < g.bottom &&
     p.bottom > g.top
   ) {
+    gameFinished = true;
     showPopup();
   }
 }
@@ -83,7 +85,7 @@ function showPopup() {
 
   if (step === 0) {
     popupText.innerText =
-      "Em đã vượt qua mê cung rồi 💜\nAnh có điều này muốn hỏi...";
+      "Em đã vượt qua mê cung 💜\nAnh có điều này muốn hỏi...";
   } 
   else if (step === 1) {
     popupText.innerText =
@@ -98,7 +100,7 @@ function showPopup() {
   }
 }
 
-/* CLICK POPUP */
+/* POPUP CLICK */
 popupBtn.onclick = () => {
   if (music.paused) music.play();
   step++;
