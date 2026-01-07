@@ -1,29 +1,44 @@
 body {
+  margin: 0;
   background: #f3e5f5;
-  font-family: Comic Sans MS, cursive;
+  font-family: "Comic Sans MS", cursive;
   overflow: hidden;
 }
 
+/* GAME */
 #game {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  position: relative;
 }
 
+/* PLAYER */
 #player {
   width: 60px;
+  height: 60px;
+  background: purple;
+  border-radius: 50%;
   position: absolute;
-  top: 50px;
-  left: 50px;
+  top: 20px;
+  left: 20px;
 }
 
+/* GOAL */
 #goal {
-  width: 80px;
   position: absolute;
-  bottom: 50px;
-  right: 50px;
+  bottom: 30px;
+  right: 30px;
+  font-size: 48px;
 }
 
+/* WALL */
+.wall {
+  position: absolute;
+  background: #7b1fa2;
+  border-radius: 10px;
+}
+
+/* POPUP */
 #popup {
   position: fixed;
   inset: 0;
@@ -31,6 +46,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .hidden {
@@ -39,15 +55,42 @@ body {
 
 .popup-content {
   background: white;
-  padding: 30px;
-  border-radius: 20px;
+  padding: 40px;
+  border-radius: 25px;
   text-align: center;
+  width: 90%;
+  max-width: 420px;
+  font-size: 18px;
 }
 
+/* BUTTON */
 button {
   background: purple;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 18px;
+}
+
+/* MOBILE CONTROLS */
+#controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
+
+#controls .row {
+  display: flex;
+  gap: 10px;
+}
+
+#controls button {
+  font-size: 24px;
+  padding: 14px 22px;
 }
