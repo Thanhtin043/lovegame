@@ -1,65 +1,185 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>💜 Tới được trái tim anh 💜</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💜 Love Maze 💜</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #7d6f7a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+  }
+
+  #maze {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(9, 40px);
+    gap: 4px;
+    margin-top: 30px;
+  }
+
+  .cell {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .wall {
+    background: #4b0055;
+  }
+
+  .path {
+    background: transparent;
+  }
+
+  .player {
+    background: transparent;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .goal {
+    background: transparent;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #controls {
+    margin-top: 20px;
+  }
+
+  #controls button {
+    width: 60px;
+    height: 60px;
+    margin: 4px;
+    font-size: 24px;
+    border-radius: 16px;
+    border: none;
+    background: #5a006a;
+    color: white;
+  }
+
+  #popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #popup-box {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 260px;
+  }
+
+  #popup-box img {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 10px;
+  }
+
+  #popup-box button {
+    background: #7b00a8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+  }
+</style>
 </head>
+
 <body>
 
-<div id="game">
+<div id="maze"></div>
 
-  <!-- PLAYER -->
-  <div id="player">💜</div>
-
-  <!-- GOAL -->
-  <img id="goal" src="assets/goal.png" alt="goal">
-
-  <!-- OUTER WALLS (CHỪA LỐI VÀO) -->
-  <div class="wall" style="top:20px; left:20px; width:360px; height:20px;"></div>
-  <div class="wall" style="top:20px; left:20px; width:20px; height:360px;"></div>
-  <div class="wall" style="top:380px; left:20px; width:360px; height:20px;"></div>
-  <div class="wall" style="top:20px; left:380px; width:20px; height:300px;"></div>
-  <!-- CHỪA LỖ Ở GÓC PHẢI DƯỚI -->
-
-  <!-- INNER MAZE -->
-  <div class="wall" style="top:80px; left:80px; width:260px; height:20px;"></div>
-  <div class="wall" style="top:80px; left:80px; width:20px; height:200px;"></div>
-
-  <div class="wall" style="top:140px; left:140px; width:200px; height:20px;"></div>
-  <div class="wall" style="top:140px; left:320px; width:20px; height:160px;"></div>
-
-  <div class="wall" style="top:260px; left:100px; width:200px; height:20px;"></div>
-  <div class="wall" style="top:200px; left:100px; width:20px; height:80px;"></div>
-
-  <!-- DEAD END -->
-  <div class="wall" style="top:200px; left:200px; width:120px; height:20px;"></div>
-
-</div>
-
-<!-- CONTROLS -->
 <div id="controls">
-  <button onclick="move('up')">▲</button>
-  <div>
-    <button onclick="move('left')">◀</button>
-    <button onclick="move('right')">▶</button>
-  </div>
-  <button onclick="move('down')">▼</button>
+  <button onclick="move(0,-1)">▲</button><br>
+  <button onclick="move(-1,0)">◀</button>
+  <button onclick="move(1,0)">▶</button><br>
+  <button onclick="move(0,1)">▼</button>
 </div>
 
-<!-- POPUP -->
-<div id="popup" class="hidden">
+<div id="popup">
   <div id="popup-box">
-    <img src="assets/girlfriend.jpg"
-         style="width:100%; border-radius:16px; margin-bottom:12px;">
-    <p>Anh yêu em 💜</p>
-    <button id="popup-btn">Dạ 💜</button>
+    <img src="assets/girlfriend.jpg">
+    <p>Anh yêu em 💜<br>Em làm người yêu anh nhé?</p>
+    <button onclick="alert('Anh hạnh phúc lắm 💜')">Dạ 💜</button>
   </div>
 </div>
 
 <audio id="music" src="assets/music.mp3" loop></audio>
 
-<script src="script.js"></script>
+<script>
+const mazeData = [
+  [0,1,1,1,1,1,1,1,1],
+  [0,0,0,0,1,0,0,0,1],
+  [1,1,1,0,1,0,1,0,1],
+  [1,0,0,0,0,0,1,0,1],
+  [1,0,1,1,1,0,1,0,1],
+  [1,0,1,0,0,0,0,0,1],
+  [1,0,1,0,1,1,1,0,1],
+  [1,0,0,0,0,0,0,0,0],
+  [1,1,1,1,1,1,1,1,0],
+];
+
+let player = {x:0,y:0};
+const goal = {x:8,y:8};
+
+const maze = document.getElementById('maze');
+const music = document.getElementById('music');
+
+function draw() {
+  maze.innerHTML = '';
+  mazeData.forEach((row,y)=>{
+    row.forEach((cell,x)=>{
+      const div = document.createElement('div');
+      div.className = 'cell ' + (cell ? 'wall' : 'path');
+
+      if (x===player.x && y===player.y) {
+        div.classList.add('player');
+        div.textContent = '💜';
+      }
+
+      if (x===goal.x && y===goal.y) {
+        div.classList.add('goal');
+        div.textContent = '🎯';
+      }
+
+      maze.appendChild(div);
+    });
+  });
+}
+
+function move(dx,dy){
+  const nx = player.x + dx;
+  const ny = player.y + dy;
+  if (mazeData[ny] && mazeData[ny][nx] === 0) {
+    player.x = nx;
+    player.y = ny;
+    draw();
+    if (nx===goal.x && ny===goal.y){
+      document.getElementById('popup').style.display='flex';
+      music.play();
+    }
+  }
+}
+
+draw();
+</script>
+
 </body>
 </html>
